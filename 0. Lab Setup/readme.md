@@ -2,7 +2,7 @@
 
 ## Environment
 
-This workbook is designed around a kubernetes cluster with Calico Enterprise installed as the CNI provider.
+This workbook is designed around a kubernetes cluster with Calico Enterprise installed.
 Current requirements:
 * 3 nodes kubernetes cluster:
 * master1 (10.0.1.20) 
@@ -25,9 +25,10 @@ Please follow the instruction provided here to create a kubernetes cluster with 
 ```
 To connect the Lynx lab environment to Calico Cloud, first we need to install Project Calico as the CNI. This will enable networking in the cluster.
 
-For more details on the install of Project Calico, refer to the [Online Documentation](https://projectcalico.docs.tigera.io/getting-started/kubernetes/).
+### Install Calico Enterprise
 
-### Install Project Calico as CNI
+For more details on the install of Project Calico, refer to the [Online Documentation]([https://projectcalico.docs.tigera.io/getting-started/kubernetes/](https://docs.tigera.io/v3.15/getting-started/kubernetes/generic-install)).
+
 
 First, we will install the Tigera Operator on the cluster:
 
