@@ -40,14 +40,21 @@ Next, we apply the custom resource manifest to install Calico as the CNI.
 
 ```yaml
 kubectl apply -f -<<EOF
-# This section includes base Calico installation configuration.
-# For more information, see: https://docs.projectcalico.org/v3.21/reference/installation/api#operator.tigera.io/v1.Installation
+# This section includes base Calico Enterprise installation configuration.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.Installation
 apiVersion: operator.tigera.io/v1
 kind: Installation
 metadata:
   name: default
 spec:
-  # Configures Calico networking.
+  # Install Calico Enterprise
+  variant: TigeraSecureEnterprise
+  # List of image pull secrets to use when installing images from a container registry.
+  # If specified, secrets must be created in the `tigera-operator` namespace.
+  imagePullSecrets:
+    - name: tigera-pull-secret
+  # Optionally, a custom registry to use for pulling images.
+  # registry: <my-registry>
   calicoNetwork:
     # Note: The ipPools section cannot be modified post-install.
     ipPools:
@@ -57,13 +64,65 @@ spec:
       natOutgoing: Enabled
       nodeSelector: all()
 ---
-# This section configures the Calico API server.
-# For more information, see: https://docs.projectcalico.org/v3.21/reference/installation/api#operator.tigera.io/v1.APIServer
+# This section configures the Tigera web manager.
+# Remove this section for a Managed cluster.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.Manager
+apiVersion: operator.tigera.io/v1
+kind: Manager
+metadata:
+  name: tigera-secure
+spec:
+  # Authentication configuration for accessing the Tigera manager.
+  # Default is to use token-based authentication.
+  auth:
+    type: Token
+---
+# This section installs and configures the Calico Enterprise API server.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.APIServer
 apiVersion: operator.tigera.io/v1
 kind: APIServer
 metadata:
-    name: default
-spec: {}
+  name: tigera-secure
+---
+# This section installs and configures Calico Enterprise compliance functionality.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.Compliance
+apiVersion: operator.tigera.io/v1
+kind: Compliance
+metadata:
+  name: tigera-secure
+---
+# This section installs and configures Calico Enterprise intrusion detection functionality.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.IntrusionDetection
+apiVersion: operator.tigera.io/v1
+kind: IntrusionDetection
+metadata:
+  name: tigera-secure
+---
+# This section configures the Elasticsearch cluster used by Calico Enterprise.
+# Remove this section for a Managed cluster.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.LogStorage
+apiVersion: operator.tigera.io/v1
+kind: LogStorage
+metadata:
+  name: tigera-secure
+spec:
+  nodes:
+    count: 1
+---
+# This section configures collection of Tigera flow, DNS, and audit logs.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.LogCollector
+apiVersion: operator.tigera.io/v1
+kind: LogCollector
+metadata:
+  name: tigera-secure
+---
+# This section configures Prometheus for Calico Enterprise.
+# For more information, see: https://docs.tigera.io/master/reference/installation/api#operator.tigera.io/v1.Monitor
+apiVersion: operator.tigera.io/v1
+kind: Monitor
+metadata:
+  name: tigera-secure
+---
 EOF
 ```
 
@@ -72,20 +131,11 @@ After a couple of minutes, all nodes should now show as Ready.
 kubectl get nodes
 ```
 ```bash
-NAME                                         STATUS   ROLES                  AGE   VERSION
-ip-10-0-1-20.ca-central-1.compute.internal   Ready    control-plane,master   9d    v1.21.7
-ip-10-0-1-30.ca-central-1.compute.internal   Ready    worker                 9d    v1.21.7
-ip-10-0-1-31.ca-central-1.compute.internal   Ready    worker                 9d    v1.21.7
+NAME      STATUS   ROLES           AGE     VERSION
+master1   Ready    control-plane   4d18h   v1.24.9
+worker1   Ready    <none>          3d13h   v1.24.9
+worker2   Ready    <none>          3d13h   v1.24.9
 ```
-
-With the cluster online, we can now take the installer string from our Calico Cloud Connect Cluster wizard and run it on our bastion host.
-```bash
-curl https://installer.calicocloud.io/<unique_string>-management_install.sh | bash
-```
-
-The install should complete after a couple of minutes and your cluster will show as connected in the Cluster Manager in Calico Cloud.
-
-
 
 ## Deploying the Application
 
