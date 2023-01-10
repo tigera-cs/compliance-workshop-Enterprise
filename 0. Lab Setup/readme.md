@@ -2,7 +2,8 @@
 
 ## Environment
 
-This workbook is designed around and already deployed kubernetes cluster with Calico installed as the CNI with the cluster connected to Calico Cloud.
+This workbook is designed around a kubernetes cluster with Calico Enterprise installed as the CNI provider.
+
 
 We will be using an example microservices based application call Online Boutique or Hipstershop as the basis for all labs and examples. This application will be deployed in its own namespace within the cluster.
 
