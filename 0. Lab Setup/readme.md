@@ -4,10 +4,10 @@
 
 This workbook is designed around a kubernetes cluster with Calico Enterprise installed as the CNI provider.
 Current requirements:
-3 nodes kubernetes cluster:
-* master1 (10.0.1.20)
-* worker1 (10.0.1.30)
-* worker2 (10.0.1.31)
+* 3 nodes kubernetes cluster:
+** master1 (10.0.1.20)
+** worker1 (10.0.1.30)
+** worker2 (10.0.1.31)
 
 We will be using an example microservices based application call Online Boutique or Hipstershop as the basis for all labs and examples. This application will be deployed in its own namespace within the cluster.
 
