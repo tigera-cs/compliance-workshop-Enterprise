@@ -27,7 +27,7 @@ To connect the Lynx lab environment to Calico Cloud, first we need to install Pr
 
 ### Install Calico Enterprise
 
-For more details on the install of Project Calico, refer to the [Online Documentation]([https://docs.tigera.io/v3.15/getting-started/kubernetes/generic-install]).
+For more details on the install of Project Calico, refer to the [Online Documentation](https://docs.tigera.io/v3.15/getting-started/kubernetes/generic-install).
 
 
 First, we will install the Tigera Operator on the cluster:
