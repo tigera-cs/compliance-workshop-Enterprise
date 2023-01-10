@@ -17,10 +17,12 @@ We will be using an example microservices based application call Online Boutique
 
 For testing, we will also be deploying a tools container called Network-Multitool which has built in tools for testing and troubleshooting within the cluster.
 
-## Setup Lynx Lab with Calico Cloud
+## Setup kubernetes cluster
 
-*If you are following along in your own lab, refer to [Project Calico Getting Started](https://projectcalico.docs.tigera.io/getting-started/kubernetes/) and [Connect your cluster](https://docs.calicocloud.io/get-started/connect/) to get started*
-
+Please follow the instruction provided here to create a kubernetes cluster with the following IP address ranges:
+```bash
+--pod-network-cidr=10.48.0.0/16 --service-cidr=10.49.0.0/16
+```
 To connect the Lynx lab environment to Calico Cloud, first we need to install Project Calico as the CNI. This will enable networking in the cluster.
 
 For more details on the install of Project Calico, refer to the [Online Documentation](https://projectcalico.docs.tigera.io/getting-started/kubernetes/).
