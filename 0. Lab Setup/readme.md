@@ -152,7 +152,7 @@ kubectl create namespace hipstershop
 Next we will deploy the Online Boutique (Hipstershop) application to the namespace. This will install the application from the Google repository.
 
 ```bash
-kubectl apply -n hipstershop -f https://raw.githubusercontent.com/GoogleCloudPlatform/microservices-demo/main/release/kubernetes-manifests.yaml
+kubectl apply -n hipstershop -f hipstershop.yaml
 ```
 
 
@@ -220,7 +220,7 @@ kubectl get svc -n hipstershop frontend-external
 ```
 ```bash
 NAME                TYPE       CLUSTER-IP      EXTERNAL-IP   PORT(S)        AGE
-frontend-external   NodePort   10.49.14.192  <none>        80:32747/TCP   4h50m
+frontend-external   NodePort   10.49.112.50   <none>        80:30007/TCP   6s
 ```
 
 Next, connect to the shell inside of the Network-Multitool pod in default namespace using kubectl exec:
@@ -238,43 +238,11 @@ Content-Type: text/html; charset=utf-8
 ```
 Exit the shell by typing **exit**.
 
-### Setup Ingress to the Hipstershop (optional)
+### Access the Online Boutique application
 
-*If you are not running within the Tigera Lynx lab, you will need to setup ingress according to your environment.*
-
-Now that the application is deployed and running, let's enable ingress access to it by creating an ingress rule using the following spec:
+Now that the application is deployed and running, let's try to access it by reaching out the frontend service that has been exposed. you should be able to reach your Online Boutique application at:
 ```yaml
-kubectl apply -f -<<EOF
-apiVersion: networking.k8s.io/v1
-kind: Ingress
-metadata:
-  name: hipstershop-ingress
-  namespace: hipstershop
-spec:
-  rules:
-    - host: "hipstershop.template.lynx.tigera.ca"
-      http:
-        paths:
-          - path: /
-            pathType: Prefix
-            backend:
-              service:
-                name: frontend
-                port:
-                  number: 80
-EOF
-```
->Manfest: [Ingress Manifest](manifests/0.2-hipstershop-ingress.yaml)
-
-After deploying you will need to patch the host to match your lab URL using the following command (substitute the keyword LABNAME with the name of your lab):
-```bash
-kubectl patch ingress hipstershop-ingress -n hipstershop --type='json' -p='[{"op": "replace", "path":"/spec/rules/0/host", "value":"hipstershop.<LABNAME>.lynx.tigera.ca"}]'
-```
-
-After completion you should be able to reach your Online Boutique application at:
-
-```
-https://hipstershop.<LABNAME>.lynx.tigera.ca
+http://10.0.1.20:30007/
 ```
 
 ![hipstershop](images/hipstershop.png)
