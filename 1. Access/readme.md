@@ -2,31 +2,31 @@
 
 ## Set Up Users
 
-Calico Cloud supports Google Social Authentication as well as local users and connecting to your own IdP (based on OIDC).
+Calico Enterprise supports Google OIDC, Openshift and LDAP Authentication as well as local users and connecting to your own IdP (based on OIDC).
 
 ## Local User Setup
 
-In Kubernetes, cluster roles specify cluster permissions and are bound to users using cluster role bindings. In Calico Cloud we provide the following predefined roles.
+In Kubernetes, cluster roles specify cluster permissions and are bound to users using cluster role bindings. In Calico Enterprise we provide the following predefined roles.
 
-**Admin**
+**tigera-network-admin**
 
-- Full access to Calico Cloud Manager
-    - Create and modify Calico Cloud resources
-    - Superuser access for Kibana, including Elasticsearch user
+- Superuser access for Kibana (including Elastic user and license management), and all Calico resources in **projectcalico.org** and **networking.k8s.io** API groups (get, list, watch, create, update, patch, delete)
 
-**Viewer**
+**tigera-ui-user**
 
-- Basic user with access to Calico Cloud Manager and Kibana:
-    - List/view Calico Cloud policy, Kubernetes policy, and tier resources
+- Basic user with access to Calico Enterprise Manager UI and Kibana:
+    - List/view Calico Enterprise policy and tier resources in the **projectcalico.org** and **networking.k8s.io** API groups
     - List/view logs in Kibana
+
+**mcm-user**
+
+- Admin user with full permissions to management and managed clusters for multi-cluster management
 
 ## OIDC User Setup
 
-Calico Cloud supports the following IdPs:
-- OIDC-based Auth providers (for example Google, Azure AD)
+To Configure an external identity provider for user authentication refer to this [documentation](https://docs.tigera.io/v3.15/getting-started/cnx/configure-identity-provider). 
 
-To add an IdP, open a [Support ticket.](https://support.tigera.io/)
 
 ## Reference Documentation
 
-For more details on Users, please see the [Calico Cloud Documentation.](https://docs.calicocloud.io/operations/user-management)
+For more details on Authentication, please see the [Authentication quickstart.](https://docs.tigera.io/v3.15/getting-started/cnx/authentication-quickstart)
