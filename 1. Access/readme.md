@@ -10,12 +10,12 @@ In Kubernetes, cluster roles specify cluster permissions and are bound to users 
 
 **tigera-network-admin**
 
-- Superuser access for Kibana (including Elastic user and license management), and all Calico resources in **projectcalico.org** and **networking.k8s.io** API groups (get, list, watch, create, update, patch, delete)
+- Superuser access for Kibana (including Elastic user and license management), and all Calico resources in *projectcalico.org* and *networking.k8s.io* API groups (get, list, watch, create, update, patch, delete)
 
 **tigera-ui-user**
 
 - Basic user with access to Calico Enterprise Manager UI and Kibana:
-    - List/view Calico Enterprise policy and tier resources in the **projectcalico.org** and **networking.k8s.io** API groups
+    - List/view Calico Enterprise policy and tier resources in the *projectcalico.org* and *networking.k8s.io* API groups
     - List/view logs in Kibana
 
 **mcm-user**
