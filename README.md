@@ -1,4 +1,4 @@
-# Calico Cloud Compliance Workshop
+# Calico Enterprise Compliance Workshop
 
 ![Calico Cloud](https://docs.calicocloud.io/images/brand-new.png)
 
