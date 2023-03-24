@@ -1,6 +1,6 @@
 # Calico Enterprise Compliance Workshop
 
-![Calico Cloud](https://docs.calicocloud.io/images/brand-new.png)
+![Calico Enterprise](https://docs.calicocloud.io/images/brand-new.png)
 
 Supporting documentation for Calico Cloud Compliance Workshop. The intent of this workshop is to provide an introduction to the Calico features that support PCI and SOC 2 compliance.
 
